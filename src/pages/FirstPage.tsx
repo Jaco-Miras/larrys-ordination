@@ -5,7 +5,7 @@ type FirstPageProps = {
 
 const FirstPage = ({ onDavaoClick, onCDOClick }: FirstPageProps) => {
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-sky-50 via-white to-orange-50 px-5 py-12 font-sans text-slate-900">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-linear-to-br from-sky-50 via-white to-orange-50 px-5 py-12 font-sans text-slate-900">
       <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-sky-200/40 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-28 -right-20 h-96 w-96 rounded-full bg-orange-200/40 blur-3xl" />
 
@@ -24,7 +24,7 @@ const FirstPage = ({ onDavaoClick, onCDOClick }: FirstPageProps) => {
           <button
             type="button"
             onClick={onDavaoClick}
-            className="group flex min-h-40 items-center gap-5 rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-50 to-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500"
+            className="group flex min-h-40 items-center gap-5 rounded-2xl border border-orange-200 bg-linear-to-br from-orange-50 to-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-500"
           >
             <span className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-3xl transition group-hover:bg-orange-200">
               🏝️
@@ -48,7 +48,7 @@ const FirstPage = ({ onDavaoClick, onCDOClick }: FirstPageProps) => {
           <button
             type="button"
             onClick={onCDOClick}
-            className="group flex min-h-40 items-center gap-5 rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
+            className="group flex min-h-40 items-center gap-5 rounded-2xl border border-blue-200 bg-linear-to-br from-blue-50 to-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-1 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-500"
           >
             <span className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-blue-100 text-3xl transition group-hover:bg-blue-200">
               🌆
