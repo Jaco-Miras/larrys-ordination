@@ -20,8 +20,9 @@ const guestTypes = [
 ] as const;
 
 const CDO = ({ onBack }: CDOProps) => {
-  const [selectedGuestType, setSelectedGuestType] =
-    useState<(typeof guestTypes)[number]["name"] | null>(null);
+  const [selectedGuestType, setSelectedGuestType] = useState<
+    (typeof guestTypes)[number]["name"] | null
+  >(null);
   const selectedMap = guestTypes.find(
     (guestType) => guestType.name === selectedGuestType,
   );
@@ -42,7 +43,7 @@ const CDO = ({ onBack }: CDOProps) => {
           <iframe
             title="Route from Cagayan de Oro to Santo Rosario Parish, Salawagan"
             src="https://www.google.com/maps?output=embed&saddr=Cagayan+de+Oro+City&daddr=Santo+Rosario+Parish,+Salawagan,+Quezon,+Bukidnon,+Philippines"
-            className="h-[min(70vw,420px)] w-full"
+            className="h-[min(120vw,740px)] w-full"
             loading="lazy"
             allowFullScreen
           />

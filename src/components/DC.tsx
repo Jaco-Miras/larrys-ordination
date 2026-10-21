@@ -20,8 +20,9 @@ const guestTypes = [
 ] as const;
 
 const DC = ({ onBack }: DCProps) => {
-  const [selectedGuestType, setSelectedGuestType] =
-    useState<(typeof guestTypes)[number]["name"] | null>(null);
+  const [selectedGuestType, setSelectedGuestType] = useState<
+    (typeof guestTypes)[number]["name"] | null
+  >(null);
   const selectedMap = guestTypes.find(
     (guestType) => guestType.name === selectedGuestType,
   );
@@ -41,7 +42,7 @@ const DC = ({ onBack }: DCProps) => {
           <iframe
             title="Route from Davao City to Santo Rosario Parish, Salawagan"
             src="https://www.google.com/maps?output=embed&saddr=Davao+City&daddr=Santo+Rosario+Parish,+Salawagan,+Quezon,+Bukidnon,+Philippines"
-            className="h-[min(70vw,420px)] w-full"
+            className="h-[min(120vw,740px)] w-full"
             loading="lazy"
             allowFullScreen
           />
