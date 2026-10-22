@@ -97,7 +97,7 @@ const DC = ({ onBack }: DCProps) => {
             <h2 className="mb-3 text-lg font-bold sm:text-xl">
               {selectedMap.name === "Sto. Rosario Parishioners"
                 ? "Sto. Rosario Parishioner Map for food distribution"
-                : `${selectedMap.name} parking and distribution map`}
+                : `${selectedMap.name} parking and food distribution map`}
             </h2>
             <button
               type="button"
