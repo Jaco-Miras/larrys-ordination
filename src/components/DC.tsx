@@ -23,6 +23,7 @@ const DC = ({ onBack }: DCProps) => {
   const [selectedGuestType, setSelectedGuestType] = useState<
     (typeof guestTypes)[number]["name"] | null
   >(null);
+  const [isMapZoomed, setIsMapZoomed] = useState(false);
   const selectedMap = guestTypes.find(
     (guestType) => guestType.name === selectedGuestType,
   );
@@ -94,14 +95,66 @@ const DC = ({ onBack }: DCProps) => {
             className="mt-5 rounded-xl border border-slate-200 p-4 sm:p-5"
           >
             <h2 className="mb-3 text-lg font-bold sm:text-xl">
-              {selectedMap.name} parking and entrance map
+              {selectedMap.name === "Sto. Rosario Parishioners"
+                ? "Sto. Rosario Parishioner Map for food distribution"
+                : `${selectedMap.name} parking and distribution map`}
             </h2>
-            <img
-              src={selectedMap.image}
-              alt={`${selectedMap.name} parking and entrance map`}
-              className="h-auto max-h-[70vh] w-full rounded-lg bg-slate-100 object-contain"
-            />
+            <button
+              type="button"
+              onClick={() => setIsMapZoomed(true)}
+              aria-label={`Zoom in on ${selectedMap.name} map`}
+              className="block w-full cursor-zoom-in rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+            >
+              <img
+                src={selectedMap.image}
+                alt={
+                  selectedMap.name === "Sto. Rosario Parishioners"
+                    ? "Sto. Rosario Parishioner map for food distribution"
+                    : `${selectedMap.name} parking and distribution map`
+                }
+                className="h-auto max-h-[70vh] w-full rounded-lg bg-slate-100 object-contain"
+              />
+              <span className="mt-2 block text-sm text-slate-500">
+                Click the map to enlarge
+              </span>
+            </button>
           </section>
+        )}
+        {isMapZoomed && selectedMap && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Enlarged ${selectedMap.name} map`}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={() => setIsMapZoomed(false)}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") setIsMapZoomed(false);
+            }}
+          >
+            <div
+              className="relative flex max-h-full max-w-full items-center justify-center"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                autoFocus
+                onClick={() => setIsMapZoomed(false)}
+                aria-label="Close enlarged map"
+                className="absolute -top-3 -right-3 z-10 flex size-10 items-center justify-center rounded-full bg-white text-2xl text-slate-900 shadow-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                ×
+              </button>
+              <img
+                src={selectedMap.image}
+                alt={
+                  selectedMap.name === "Sto. Rosario Parishioners"
+                    ? "Sto. Rosario Parishioner map for food distribution"
+                    : `${selectedMap.name} parking and distribution map`
+                }
+                className="max-h-[calc(100vh-2rem)] max-w-full rounded-lg object-contain"
+              />
+            </div>
+          </div>
         )}
       </article>
     </main>
