@@ -49,8 +49,8 @@ const DC = ({ onBack }: DCProps) => {
           />
         </div>
         <p className="mt-3 text-base leading-relaxed sm:text-lg">
-          Upon reaching Santa Rita Bridge, look for the flaglets that will guide
-          you along the route.
+          Upon reaching Manuto Bridge, follow the yellow, orange, and green
+          flaglets along the route.
         </p>
         <section className="mt-5 rounded-xl bg-slate-50 p-4 sm:p-5">
           <h2 className="text-lg font-bold sm:text-xl">For commuters:</h2>
