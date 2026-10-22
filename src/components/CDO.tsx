@@ -51,7 +51,8 @@ const CDO = ({ onBack }: CDOProps) => {
         </div>
 
         <p className="mt-3 text-base leading-relaxed sm:text-lg">
-          Upon reaching Manuto Bridge, follow the flaglets along the route.
+          Upon reaching Manuto Bridge, follow the yellow, orange, and green
+          flaqlets along the route.
         </p>
 
         <section className="mt-5 rounded-xl bg-slate-50 p-4 sm:p-5">
