@@ -1,23 +1,9 @@
 import { useState } from "react";
+import { dcText, guestTypes } from "../dynamic-text/dc";
 
 type DCProps = {
   onBack: () => void;
 };
-
-const guestTypes = [
-  {
-    name: "Clergy",
-    image: "/clergy-map.png",
-  },
-  {
-    name: "Non Parishioner Guests",
-    image: "/non-parishioner-map.png",
-  },
-  {
-    name: "Sto. Rosario Parishioners",
-    image: "/parishioner-map.png",
-  },
-] as const;
 
 const DC = ({ onBack }: DCProps) => {
   const [selectedGuestType, setSelectedGuestType] = useState<
@@ -37,11 +23,11 @@ const DC = ({ onBack }: DCProps) => {
           className="mb-5 inline-flex items-center gap-2 rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
         >
           <span aria-hidden="true">←</span>
-          Back
+          {dcText.back}
         </button>
         <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
           <iframe
-            title="Route from Davao City to Santo Rosario Parish, Salawagan"
+            title={dcText.routeTitle}
             src="https://www.google.com/maps?output=embed&saddr=Davao+City&daddr=Santo+Rosario+Parish,+Salawagan,+Quezon,+Bukidnon,+Philippines"
             className="h-[min(120vw,740px)] w-full"
             loading="lazy"
@@ -49,22 +35,20 @@ const DC = ({ onBack }: DCProps) => {
           />
         </div>
         <p className="mt-3 text-base leading-relaxed sm:text-lg">
-          Upon reaching Manuto Bridge, follow the yellow, orange, and green
-          flaglets along the route.
+          {dcText.routeDavaoDirections}
         </p>
         <section className="mt-5 rounded-xl bg-slate-50 p-4 sm:p-5">
-          <h2 className="text-lg font-bold sm:text-xl">For commuters:</h2>
+          <h2 className="text-lg font-bold sm:text-xl">
+            {dcText.commuterHeading}
+          </h2>
           <p className="mt-3 text-base leading-relaxed sm:text-lg">
-            From Davao International Airport, take a taxi to Ecoland Bus
-            Terminal. From there, board a Rural Transit bus bound for Cagayan de
-            Oro City. Ask the driver to drop you off at the Salawagan, Quezon,
-            Bukidnon bus stop.
+            {dcText.commuterDavaoDirections}
           </p>
         </section>
 
         <fieldset className="mt-5 rounded-xl border border-slate-200 p-4 sm:p-5">
           <legend className="px-1 text-lg font-bold sm:text-xl">
-            Select your category
+            {dcText.categoryLegend}
           </legend>
           <div className="mt-2 grid gap-3 sm:grid-cols-3">
             {guestTypes.map((guestType) => (
@@ -95,9 +79,7 @@ const DC = ({ onBack }: DCProps) => {
             className="mt-5 rounded-xl border border-slate-200 p-4 sm:p-5"
           >
             <h2 className="mb-3 text-lg font-bold sm:text-xl">
-              {selectedMap.name === "Sto. Rosario Parishioners"
-                ? "Sto. Rosario Parishioner Map for food distribution"
-                : `${selectedMap.name} parking and food distribution map`}
+              {selectedMap.mapTitle}
             </h2>
             <button
               type="button"
@@ -107,15 +89,11 @@ const DC = ({ onBack }: DCProps) => {
             >
               <img
                 src={selectedMap.image}
-                alt={
-                  selectedMap.name === "Sto. Rosario Parishioners"
-                    ? "Sto. Rosario Parishioner map for food distribution"
-                    : `${selectedMap.name} parking and distribution map`
-                }
+                alt={selectedMap.mapAlt}
                 className="h-auto max-h-[70vh] w-full rounded-lg bg-slate-100 object-contain"
               />
               <span className="mt-2 block text-sm text-slate-500">
-                Click the map to enlarge
+                {dcText.mapZoomHint}
               </span>
             </button>
           </section>
@@ -139,18 +117,14 @@ const DC = ({ onBack }: DCProps) => {
                 type="button"
                 autoFocus
                 onClick={() => setIsMapZoomed(false)}
-                aria-label="Close enlarged map"
+                aria-label={dcText.closeMap}
                 className="absolute -top-3 -right-3 z-10 flex size-10 items-center justify-center rounded-full bg-white text-2xl text-slate-900 shadow-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 ×
               </button>
               <img
                 src={selectedMap.image}
-                alt={
-                  selectedMap.name === "Sto. Rosario Parishioners"
-                    ? "Sto. Rosario Parishioner map for food distribution"
-                    : `${selectedMap.name} parking and distribution map`
-                }
+                alt={selectedMap.mapAlt}
                 className="max-h-[calc(100vh-2rem)] max-w-full rounded-lg object-contain"
               />
             </div>

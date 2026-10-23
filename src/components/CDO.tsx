@@ -1,23 +1,9 @@
 import { useState } from "react";
+import { dcText, guestTypes } from "../dynamic-text/dc";
 
 type CDOProps = {
   onBack: () => void;
 };
-
-const guestTypes = [
-  {
-    name: "Clergy",
-    image: "/clergy-map.png",
-  },
-  {
-    name: "Non Parishioner Guests",
-    image: "/non-parishioner-map.png",
-  },
-  {
-    name: "Sto. Rosario Parishioners",
-    image: "/parishioner-map.png",
-  },
-] as const;
 
 const CDO = ({ onBack }: CDOProps) => {
   const [selectedGuestType, setSelectedGuestType] = useState<
@@ -51,22 +37,21 @@ const CDO = ({ onBack }: CDOProps) => {
         </div>
 
         <p className="mt-3 text-base leading-relaxed sm:text-lg">
-          Upon reaching Manuto Bridge, follow the yellow, orange, and green
-          flaglets along the route.
+          {dcText.routeCdoDirections}
         </p>
 
         <section className="mt-5 rounded-xl bg-slate-50 p-4 sm:p-5">
-          <h2 className="text-lg font-bold sm:text-xl">For commuters:</h2>
+          <h2 className="text-lg font-bold sm:text-xl">
+            {dcText.commuterHeading}:
+          </h2>
           <p className="mt-3 text-base leading-relaxed sm:text-lg">
-            From Laguindingan Airport, take a van to Agora Bus Terminal. From
-            there, board a Rural Transit bus bound for Davao City. Ask the
-            driver to drop you off at the Salawagan, Quezon, Bukidnon bus stop.
+            {dcText.commuterCdoDirections}
           </p>
         </section>
 
         <fieldset className="mt-5 rounded-xl border border-slate-200 p-4 sm:p-5">
           <legend className="px-1 text-lg font-bold sm:text-xl">
-            Select your category
+            {dcText.categoryLegend}
           </legend>
           <div className="mt-2 grid gap-3 sm:grid-cols-3">
             {guestTypes.map((guestType) => (
