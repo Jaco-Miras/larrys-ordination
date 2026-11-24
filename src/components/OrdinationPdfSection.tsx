@@ -61,7 +61,7 @@ const OrdinationPdfSection = () => {
           />
 
           {/* Front cover preview */}
-          <div className="relative flex aspect-[3/4] flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-linear-to-b from-white via-amber-50/30 to-orange-50/40 p-5 text-center shadow-md shadow-slate-200/70 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-amber-100/80">
+          <div className="relative flex aspect-3/4 flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-linear-to-b from-white via-amber-50/30 to-orange-50/40 p-5 text-center shadow-md shadow-slate-200/70 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-amber-100/80">
             <div className="flex items-center justify-between">
               <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold tracking-wider text-rose-600 ring-1 ring-rose-200/80">
                 PDF
