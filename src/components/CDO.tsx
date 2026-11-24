@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dcText, guestTypes } from "../dynamic-text/dc";
 
 type CDOProps = {
   onBack: () => void;
 };
+
+const CDO_DIRECTIONS_URL =
+  "https://www.google.com/maps/dir/?api=1&origin=Cagayan+de+Oro+City&destination=Santo+Rosario+Parish,+Salawagan,+Quezon,+Bukidnon,+Philippines";
 
 const CDO = ({ onBack }: CDOProps) => {
   const [selectedGuestType, setSelectedGuestType] = useState<
@@ -14,6 +17,31 @@ const CDO = ({ onBack }: CDOProps) => {
     (guestType) => guestType.name === selectedGuestType,
   );
 
+  useEffect(() => {
+    if (!isMapZoomed) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMapZoomed(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMapZoomed]);
+
+  const handleOpenGoogleMaps = () => {
+    window.open(CDO_DIRECTIONS_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleDownloadMap = () => {
+    if (!selectedMap) return;
+    const link = document.createElement("a");
+    link.href = selectedMap.image;
+    link.download = selectedMap.image.split("/").pop() ?? "map.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-8 font-sans text-slate-900 sm:px-6">
       <article className="mx-auto max-w-6xl rounded-2xl bg-white p-5 shadow-lg shadow-slate-200/70 sm:p-8">
@@ -23,17 +51,27 @@ const CDO = ({ onBack }: CDOProps) => {
           className="mb-5 inline-flex items-center gap-2 rounded-lg px-3 py-2 font-medium text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
         >
           <span aria-hidden="true">←</span>
-          Back
+          {dcText.back}
         </button>
 
         <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100">
           <iframe
-            title="Route from Cagayan de Oro to Santo Rosario Parish, Salawagan"
+            title={dcText.routeCdoTitle}
             src="https://www.google.com/maps?output=embed&saddr=Cagayan+de+Oro+City&daddr=Santo+Rosario+Parish,+Salawagan,+Quezon,+Bukidnon,+Philippines"
             className="h-[min(120vw,740px)] w-full"
             loading="lazy"
             allowFullScreen
           />
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={handleOpenGoogleMaps}
+            className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+          >
+            {dcText.openInGoogleMaps}
+          </button>
         </div>
 
         <p className="mt-3 text-base leading-relaxed sm:text-lg">
@@ -42,7 +80,7 @@ const CDO = ({ onBack }: CDOProps) => {
 
         <section className="mt-5 rounded-xl bg-slate-50 p-4 sm:p-5">
           <h2 className="text-lg font-bold sm:text-xl">
-            {dcText.commuterHeading}:
+            {dcText.commuterHeading}
           </h2>
           <p className="mt-3 text-base leading-relaxed sm:text-lg">
             {dcText.commuterCdoDirections}
@@ -81,11 +119,18 @@ const CDO = ({ onBack }: CDOProps) => {
             aria-live="polite"
             className="mt-5 rounded-xl border border-slate-200 p-4 sm:p-5"
           >
-            <h2 className="mb-3 text-lg font-bold sm:text-xl">
-              {selectedMap.name === "Sto. Rosario Parishioners"
-                ? "Sto. Rosario Parishioner Map for food distribution"
-                : `${selectedMap.name} parking and food distribution map`}
-            </h2>
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-lg font-bold sm:text-xl">
+                {selectedMap.mapTitle}
+              </h2>
+              <button
+                type="button"
+                onClick={handleDownloadMap}
+                className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+              >
+                {dcText.downloadMap}
+              </button>
+            </div>
             <button
               type="button"
               onClick={() => setIsMapZoomed(true)}
@@ -94,15 +139,11 @@ const CDO = ({ onBack }: CDOProps) => {
             >
               <img
                 src={selectedMap.image}
-                alt={
-                  selectedMap.name === "Sto. Rosario Parishioners"
-                    ? "Sto. Rosario Parishioner map for food distribution"
-                    : `${selectedMap.name} parking and distribution map`
-                }
+                alt={selectedMap.mapAlt}
                 className="h-auto max-h-[70vh] w-full rounded-lg bg-slate-100 object-contain"
               />
               <span className="mt-2 block text-sm text-slate-500">
-                Click the map to enlarge
+                {dcText.mapZoomHint}
               </span>
             </button>
           </section>
@@ -114,9 +155,6 @@ const CDO = ({ onBack }: CDOProps) => {
             aria-label={`Enlarged ${selectedMap.name} map`}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
             onClick={() => setIsMapZoomed(false)}
-            onKeyDown={(event) => {
-              if (event.key === "Escape") setIsMapZoomed(false);
-            }}
           >
             <div
               className="relative flex max-h-full max-w-full items-center justify-center"
@@ -126,18 +164,14 @@ const CDO = ({ onBack }: CDOProps) => {
                 type="button"
                 autoFocus
                 onClick={() => setIsMapZoomed(false)}
-                aria-label="Close enlarged map"
+                aria-label={dcText.closeMap}
                 className="absolute -top-3 -right-3 z-10 flex size-10 items-center justify-center rounded-full bg-white text-2xl text-slate-900 shadow-lg hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 ×
               </button>
               <img
                 src={selectedMap.image}
-                alt={
-                  selectedMap.name === "Sto. Rosario Parishioners"
-                    ? "Sto. Rosario Parishioner map for food distribution"
-                    : `${selectedMap.name} parking and distribution map`
-                }
+                alt={selectedMap.mapAlt}
                 className="max-h-[calc(100vh-2rem)] max-w-full rounded-lg object-contain"
               />
             </div>

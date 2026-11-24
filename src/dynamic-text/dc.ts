@@ -1,6 +1,7 @@
 export const dcText = {
   back: "Back",
   routeTitle: "Route from Davao City to Santo Rosario Parish, Salawagan",
+  routeCdoTitle: "Route from Cagayan de Oro to Santo Rosario Parish, Salawagan",
   routeCdoDirections:
     "Upon reaching Manuto Bridge, follow the yellow, orange, and green flaglets along the route.",
   routeDavaoDirections:
@@ -10,6 +11,8 @@ export const dcText = {
     "From Davao International Airport, take a taxi to Ecoland Bus Terminal. From there, board a Rural Transit bus bound for Cagayan de Oro City. Ask the driver to drop you off at the Salawagan, Quezon, Bukidnon bus stop.",
   commuterCdoDirections:
     "From Cagayan de Oro City, take a van to Agora Bus Terminal. From there, board a Rural Transit bus bound for Davao City. Ask the driver to drop you off at the Salawagan, Quezon, Bukidnon bus stop.",
+  openInGoogleMaps: "Open in Google Maps",
+  downloadMap: "Download map",
   categoryLegend: "Select your category",
   mapZoomHint: "Click the map to enlarge",
   closeMap: "Close enlarged map",

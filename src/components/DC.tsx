@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dcText, guestTypes } from "../dynamic-text/dc";
 
 type DCProps = {
   onBack: () => void;
 };
+
+const DAVAO_DIRECTIONS_URL =
+  "https://www.google.com/maps/dir/?api=1&origin=Davao+City&destination=Santo+Rosario+Parish,+Salawagan,+Quezon,+Bukidnon,+Philippines";
 
 const DC = ({ onBack }: DCProps) => {
   const [selectedGuestType, setSelectedGuestType] = useState<
@@ -13,6 +16,31 @@ const DC = ({ onBack }: DCProps) => {
   const selectedMap = guestTypes.find(
     (guestType) => guestType.name === selectedGuestType,
   );
+
+  useEffect(() => {
+    if (!isMapZoomed) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMapZoomed(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isMapZoomed]);
+
+  const handleOpenGoogleMaps = () => {
+    window.open(DAVAO_DIRECTIONS_URL, "_blank", "noopener,noreferrer");
+  };
+
+  const handleDownloadMap = () => {
+    if (!selectedMap) return;
+    const link = document.createElement("a");
+    link.href = selectedMap.image;
+    link.download = selectedMap.image.split("/").pop() ?? "map.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-8 font-sans text-slate-900 sm:px-6">
@@ -33,6 +61,15 @@ const DC = ({ onBack }: DCProps) => {
             loading="lazy"
             allowFullScreen
           />
+        </div>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={handleOpenGoogleMaps}
+            className="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+          >
+            {dcText.openInGoogleMaps}
+          </button>
         </div>
         <p className="mt-3 text-base leading-relaxed sm:text-lg">
           {dcText.routeDavaoDirections}
@@ -78,9 +115,18 @@ const DC = ({ onBack }: DCProps) => {
             aria-live="polite"
             className="mt-5 rounded-xl border border-slate-200 p-4 sm:p-5"
           >
-            <h2 className="mb-3 text-lg font-bold sm:text-xl">
-              {selectedMap.mapTitle}
-            </h2>
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-lg font-bold sm:text-xl">
+                {selectedMap.mapTitle}
+              </h2>
+              <button
+                type="button"
+                onClick={handleDownloadMap}
+                className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+              >
+                {dcText.downloadMap}
+              </button>
+            </div>
             <button
               type="button"
               onClick={() => setIsMapZoomed(true)}
@@ -105,9 +151,6 @@ const DC = ({ onBack }: DCProps) => {
             aria-label={`Enlarged ${selectedMap.name} map`}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
             onClick={() => setIsMapZoomed(false)}
-            onKeyDown={(event) => {
-              if (event.key === "Escape") setIsMapZoomed(false);
-            }}
           >
             <div
               className="relative flex max-h-full max-w-full items-center justify-center"
