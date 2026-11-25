@@ -1,3 +1,4 @@
+import LiveStreamSection from "../components/LiveStreamSection";
 import OrdinationPdfSection from "../components/OrdinationPdfSection";
 
 type FirstPageProps = {
@@ -73,6 +74,8 @@ const FirstPage = ({ onDavaoClick, onCDOClick }: FirstPageProps) => {
             </button>
           </div>
         </section>
+
+        <LiveStreamSection />
 
         <OrdinationPdfSection />
       </div>
