@@ -42,26 +42,17 @@ const OrdinationPdfSection = () => {
       />
 
       <div className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[220px_1fr] md:gap-10">
-        {/* Stylized PDF Booklet Preview Card */}
-        <a
-          href={PDF_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Preview Rite of Ordination PDF booklet in a new tab"
-          className="group relative mx-auto block w-48 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-500 md:w-full"
+        {/* Stylized Booklet Cover Card */}
+        <div
+          aria-hidden="true"
+          className="relative mx-auto w-48 shrink-0 md:w-full"
         >
           {/* Layered pages depth effect */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 translate-x-2 translate-y-2 rotate-3 rounded-2xl border border-amber-200/70 bg-amber-50/70 transition duration-300 group-hover:translate-x-3 group-hover:rotate-5"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -translate-x-1.5 translate-y-1.5 -rotate-2 rounded-2xl border border-sky-200/70 bg-sky-50/70 transition duration-300 group-hover:-translate-x-2.5 group-hover:-rotate-4"
-          />
+          <div className="absolute inset-0 translate-x-2 translate-y-2 rotate-3 rounded-2xl border border-amber-200/70 bg-amber-50/70" />
+          <div className="absolute inset-0 -translate-x-1.5 translate-y-1.5 -rotate-2 rounded-2xl border border-sky-200/70 bg-sky-50/70" />
 
-          {/* Front cover preview */}
-          <div className="relative flex aspect-3/4 flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-linear-to-b from-white via-amber-50/30 to-orange-50/40 p-5 text-center shadow-md shadow-slate-200/70 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-amber-100/80">
+          {/* Front cover */}
+          <div className="relative flex aspect-3/4 flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/90 bg-linear-to-b from-white via-amber-50/30 to-orange-50/40 p-5 text-center shadow-md shadow-slate-200/70">
             <div className="flex items-center justify-between">
               <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold tracking-wider text-rose-600 ring-1 ring-rose-200/80">
                 PDF
@@ -73,7 +64,6 @@ const OrdinationPdfSection = () => {
 
             <div className="my-auto flex flex-col items-center py-2">
               <svg
-                aria-hidden="true"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -103,9 +93,9 @@ const OrdinationPdfSection = () => {
               <span className="mt-0.5 block">Sto. Rosario Parish</span>
             </p>
           </div>
-        </a>
+        </div>
 
-        {/* Booklet Details & Download Actions */}
+        {/* Booklet Details & Download Action */}
         <div className="flex flex-col text-center md:text-left">
           <div className="flex justify-center md:justify-start">
             <span className="inline-flex items-center gap-2 rounded-full border border-amber-200/80 bg-amber-50/90 px-3.5 py-1 text-xs font-semibold tracking-wide text-amber-800 uppercase">
@@ -222,7 +212,7 @@ const OrdinationPdfSection = () => {
         </div>
       </div>
 
-      <OrdinationSongsViewer pdfUrl={PDF_URL} />
+      <OrdinationSongsViewer />
     </section>
   );
 };

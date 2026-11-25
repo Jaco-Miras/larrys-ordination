@@ -4,10 +4,6 @@ import {
   type SongTabId,
 } from "../dynamic-text/ordinationSongs";
 
-type OrdinationSongsViewerProps = {
-  pdfUrl: string;
-};
-
 type FontSize = "sm" | "md" | "lg";
 
 const FONT_SIZE_CLASS: Record<FontSize, string> = {
@@ -16,7 +12,7 @@ const FONT_SIZE_CLASS: Record<FontSize, string> = {
   lg: "text-base leading-relaxed sm:text-lg",
 };
 
-const OrdinationSongsViewer = ({ pdfUrl }: OrdinationSongsViewerProps) => {
+const OrdinationSongsViewer = () => {
   const [activeTabId, setActiveTabId] = useState<SongTabId>("entrance");
   const [selectedMoreSongId, setSelectedMoreSongId] = useState<string>(
     "responsorial-psalm",
@@ -199,15 +195,9 @@ const OrdinationSongsViewer = ({ pdfUrl }: OrdinationSongsViewerProps) => {
                 )}
               </div>
 
-              <a
-                href={`${pdfUrl}#page=${song.page}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-600 transition hover:border-sky-300 hover:bg-sky-50 hover:text-sky-700"
-              >
-                <span>Page {song.page} in PDF</span>
-                <span aria-hidden="true">↗</span>
-              </a>
+              <span className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-500">
+                Page {song.page}
+              </span>
             </header>
 
             <div className={`mt-4 space-y-4 ${FONT_SIZE_CLASS[fontSize]}`}>
